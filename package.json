@@ -1,0 +1,33 @@
+{
+  "name": "fwrd-sms-mcp",
+  "version": "1.0.0",
+  "description": "An MCP server that hands your AI agent the SMS verification codes the Fwrd iPhone app forwards. Runs on your own Cloudflare account.",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "cf-typegen": "wrangler types",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test --test-reporter=spec test/e2e.test.mjs",
+    "test:inspector": "node test/inspector.mjs"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "wrangler": "4.152.0"
+  },
+  "cloudflare": {
+    "bindings": {
+      "FWRD_TOKEN": {
+        "description": "The secret at the end of the URL you paste into Fwrd's Webhook destination. Generate one with `openssl rand -hex 32`."
+      },
+      "MCP_TOKEN": {
+        "description": "The secret your AI client sends to `/mcp`. Use a different value from FWRD_TOKEN: `openssl rand -hex 32`."
+      }
+    }
+  }
+}

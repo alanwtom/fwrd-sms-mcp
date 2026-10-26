@@ -1,0 +1,32 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "fwrd-sms-mcp",
+  "main": "src/index.ts",
+  // The newest date the Workers runtime bundled with the pinned wrangler supports, so
+  // `wrangler dev` (and the tests) run under the same rules as production.
+  "compatibility_date": "2026-10-19",
+  // Lets the Worker see when an MCP client hangs up mid-wait, so a code isn't handed to nobody.
+  "compatibility_flags": ["enable_request_signal"],
+  "durable_objects": {
+    "bindings": [{ "name": "INBOX", "class_name": "Inbox" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Inbox"] }],
+  "vars": {
+    // Comma-separated origins allowed to call /mcp, for example "https://app.example.com".
+    // When set, a request whose Origin header isn't listed is refused with 403. When empty,
+    // any Origin is accepted; every request still needs MCP_TOKEN.
+    "ALLOWED_ORIGINS": "",
+    // How long to keep each text, in seconds. At most 900 (15 minutes); lower it to delete sooner.
+    "KEEP_SECONDS": "900",
+    // "true" adds message text to the logs. For local debugging only.
+    "DEBUG": "false"
+  },
+  "observability": {
+    "enabled": true,
+    // Request URLs carry your tokens, so request logs and traces stay off. Only this
+    // Worker's own log lines are kept, and those never include tokens or message text.
+    "redact_query_string": true,
+    "logs": { "enabled": true, "invocation_logs": false },
+    "traces": { "enabled": false }
+  }
+}

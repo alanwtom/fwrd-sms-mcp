@@ -1,0 +1,9 @@
+# Copy this file to .dev.vars for `npm run dev`, and fill in both values.
+# Make each one with `openssl rand -hex 32`, and use two different values.
+# In production, set them with `npx wrangler secret put FWRD_TOKEN` and `... MCP_TOKEN`.
+
+# The secret at the end of the URL you paste into Fwrd's Webhook destination.
+FWRD_TOKEN=
+
+# The secret your AI client sends as "Authorization: Bearer <MCP_TOKEN>".
+MCP_TOKEN=
