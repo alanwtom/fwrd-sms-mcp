@@ -80,6 +80,16 @@ URL instead. These connectors reach your Worker from Anthropic's cloud, not from
 `Authorization: Bearer <MCP_TOKEN>`. If it can't send headers, use
 `https://<worker>/mcp/<MCP_TOKEN>`, and keep that URL as private as a password.
 
+## Agent skill
+
+[`skills/sms-verification-codes`](skills/sms-verification-codes/SKILL.md) teaches a coding agent
+when to call these tools and how to set all this up with you. Install it with
+[skills](https://skills.sh) for Claude Code, Cursor, Codex and other agents:
+
+```sh
+npx skills add alanwtom/fwrd-sms-mcp
+```
+
 ## Tools
 
 | Tool | Arguments | What it does |
