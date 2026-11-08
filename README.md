@@ -90,6 +90,12 @@ when to call these tools and how to set all this up with you. Install it with
 npx skills add alanwtom/fwrd-sms-mcp
 ```
 
+## Over stdio
+
+`node glama/stdio.mjs` (or the `Dockerfile`) runs the Worker locally with `wrangler dev` and
+speaks MCP over stdin/stdout. MCP directories use it to list the tools. It receives no texts, so
+for real use deploy the Worker and connect to `https://<worker>/mcp`.
+
 ## Tools
 
 | Tool | Arguments | What it does |
